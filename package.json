@@ -4,8 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "node_1": "nodemon --watch dev -e js dev/networkNode.js 3031",
+    "node_2": "nodemon --watch dev -e js dev/networkNode.js 3032",
+    "node_3": "nodemon --watch dev -e js dev/networkNode.js 3033",
+    "node_4": "nodemon --watch dev -e js dev/networkNode.js 3034",
+    "node_5": "nodemon --watch dev -e js dev/networkNode.js 3035",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "sha256": "^0.2.0",
+    "uuid": "^3.3.2"
+  }
 }
