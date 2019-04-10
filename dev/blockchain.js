@@ -1,10 +1,14 @@
 const sha256 = require('sha256');
+const uuid = require('uuid/v1');
+
+const currentNodeUrl = process.argv[3];
 
 class Blockchain {
     constructor() {
         this.chain = [];
         this.pendingTransactions = [];
-
+        this.currentNodeUrl = currentNodeUrl;
+        this.networkNodes = [];
         this.createNewBlock(100, '0', '0');
     }
 
@@ -18,7 +22,7 @@ class Blockchain {
             previousBlockHash: previousBlockHash,
         };
 
-        this.newTransaction = [];
+        this.pendingTransactions = [];
         this.chain.push(newBlock);
 
         return newBlock;
@@ -33,11 +37,17 @@ class Blockchain {
             amount: amount,
             sender: sender,
             recipient: recipient,
+            transactionId: uuid().split('-').join('')
         };
+        
+        return newTransaction;
+    }
 
-        this.pendingTransactions.push(newTransaction);
+    addTransactionToPendingTransactions(transactionObj) {
+        this.pendingTransactions.push(transactionObj);
         return this.getLastBlock()['index'] + 1;
     }
+
 
     hashBlock(previousBlockHash, currentBlockData, nonce) {
         const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData);
